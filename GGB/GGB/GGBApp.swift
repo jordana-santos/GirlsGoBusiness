@@ -11,7 +11,8 @@ import SwiftUI
 struct GGBApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
+            //CountdownTimer()
         }
     }
 }
