@@ -27,6 +27,11 @@ struct HomeView: View {
                         )
                 }
             }
+            .navigationDestination(for: Route.self) { page in
+                page.view(
+                    path: $path
+                )
+            }
         }
     }
 }
