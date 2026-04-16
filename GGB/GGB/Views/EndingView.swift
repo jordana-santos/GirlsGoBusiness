@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EndingView: View {
-    //@Binding var path: [Route]
+    @Binding var path: [Route]
     
     var body: some View {
         Text("EndingView")

@@ -11,27 +11,28 @@ import Combine
 public struct CountdownTimer: View {
     let end: Date
     @State private var timeRemaining: TimeInterval = 28 * 60
-    @State private var isFinished: Bool = false
+    @Binding var timeout: Bool
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     public var body: some View {
         VStack(spacing: 20) {
-            Text(timeString(from: timeRemaining))
-                .font(.system(size: 64, weight: .bold, design: .monospaced))
-                .foregroundColor(isFinished ? .red : .black)
-
-            if isFinished {
-                Text("Time's up!")
-                    .font(.title)
-                    .foregroundColor(.red)
+            ZStack{
+                Rectangle()
+                    .frame(width: 350, height: 100)
+                    .foregroundColor(.gray)
+                    .cornerRadius(15)
+                
+                Text(timeString(from: timeRemaining))
+                    .font(.system(size: 64, weight: .bold, design: .monospaced))
+                    .foregroundColor(.black)
             }
         }
         .onReceive(timer) { _ in
             let remaining = end.timeIntervalSinceNow
             if remaining <= 0 {
                 timeRemaining = 0
-                isFinished = true
+                timeout = true
             } else {
                 timeRemaining = remaining
             }

@@ -6,10 +6,27 @@
 //
 
 import SwiftUI
-//@Binding var path: [Route]
 
 struct ManualView: View {
+    @Binding var path: [Route]
+    
     var body: some View {
-        Text("Manual View")
+        VStack {
+            ZStack {
+                Rectangle()
+                    .frame(width: 360, height: 600)
+                    .foregroundColor(.gray)
+                    .cornerRadius(15)
+                    .padding(5)
+                    
+                
+                ScrollView(){
+                    Text("conteudo do manual")
+                        .padding()
+                }
+                .frame(width: 360, height: 600)
+                .padding(5)
+            }
+        }
     }
 }
