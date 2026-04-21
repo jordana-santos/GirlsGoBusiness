@@ -12,7 +12,7 @@ public struct Keyboard: View {
     public var body: some View {
         ZStack{
             Rectangle()
-                .frame(width: 350, height: 500)
+                .frame(width: 350, height: 450)
                 .foregroundColor(.gray)
                 .cornerRadius(15)
             

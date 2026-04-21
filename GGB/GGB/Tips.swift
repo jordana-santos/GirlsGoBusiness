@@ -1,5 +1,5 @@
 //
-//  SolutionView.swift
+//  TipView.swift
 //  GGB
 //
 //  Created by Jordana Lourenço Santos on 16/04/26.
@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct SolutionView: View {
-    @Binding var path: [Route]
+struct Tips: View {
     
     var body: some View {
         VStack{
@@ -19,9 +18,10 @@ struct SolutionView: View {
                     .cornerRadius(15)
                     .padding(5)
                 
-                Text("solucao")
+                Text("dica")
                     .padding(5)
             }
+            Spacer()
         }
     }
 }

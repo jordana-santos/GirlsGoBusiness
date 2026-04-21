@@ -11,6 +11,8 @@ struct GameView: View {
     @Binding var path: [Route]
     @State private var endTime: Date = Date().addingTimeInterval(28 * 60)
     @State var timeout: Bool = false
+    @State var showTip: Bool = false
+    @State var showSolution: Bool = false
     
     var body: some View {
         VStack{
@@ -24,38 +26,61 @@ struct GameView: View {
             
             Spacer()
             
-            Keyboard()
+            if (showTip){
+                Tips()
+            } else if (showSolution){
+                Solution()
+            } else {
+                Keyboard()
+            }
             
-            HStack(){
-                Button{
-                    path.append(.tip)
-                }label: {
-                    Circle()
-                        .frame(width: 60, height: 60)
-                        .padding(.horizontal, 35)
-                        .padding(.vertical, 15)
-                        .foregroundColor(.gray)
-                        .overlay(
-                            Image(systemName: "lightbulb.max")
-                                .foregroundColor(.black)
-                        )
-                }
-                
-                
-                Spacer()
-                Button{
-                    
+            if (showTip || showSolution){
+                Button {
+                    showTip = false
+                    showSolution = false
                 } label: {
                     Rectangle()
-                        .frame(width: 150, height: 50)
-                        .foregroundColor(.gray)
+                        .frame(width: 360, height: 50)
                         .cornerRadius(15)
+                        .foregroundColor(Color.teal)
                         .overlay(
-                            Text("Solução")
+                            Text("ok")
                                 .foregroundColor(.black)
+                                .font(.system(size: 18))
                         )
-                        .padding(.horizontal, 35)
-                        .padding(.vertical, 15)
+                        .padding(5)
+                }
+            } else {
+                HStack(){
+                    Button{
+                        showTip = true
+                    }label: {
+                        Circle()
+                            .frame(width: 60, height: 60)
+                            .padding(.horizontal, 35)
+                            .padding(.vertical, 15)
+                            .foregroundColor(.gray)
+                            .overlay(
+                                Image(systemName: "lightbulb.max")
+                                    .foregroundColor(.black)
+                            )
+                    }
+                    
+                    Spacer()
+                    Button{
+                        showSolution = true
+                    } label: {
+                        Rectangle()
+                            .frame(width: 150, height: 50)
+                            .foregroundColor(.gray)
+                            .cornerRadius(15)
+                            .overlay(
+                                Text("Solução")
+                                    .foregroundColor(.black)
+                            )
+                            .padding(.horizontal, 35)
+                            .padding(.vertical, 15)
+                    }
                 }
             }
         }

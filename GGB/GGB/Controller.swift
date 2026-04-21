@@ -14,8 +14,6 @@ enum Route: String, Hashable, Codable, RawRepresentable {
     case intro
     case game
     case end
-    case solution
-    case tip
 }
 
 extension Route {
@@ -36,10 +34,6 @@ extension Route {
             GameView(path: path)
         case .end:
             EndingView(path: path)
-        case .solution:
-            SolutionView(path: path)
-        case .tip:
-            TipView(path: path)
         }
     }
 }
