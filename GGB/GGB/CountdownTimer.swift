@@ -10,9 +10,8 @@ import Combine
 
 public struct CountdownTimer: View {
     let end: Date
-    @State private var timeRemaining: TimeInterval = 28 * 60
+    @Binding var timeRemaining: TimeInterval
     @Binding var timeout: Bool
-    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     public var body: some View {
@@ -30,6 +29,7 @@ public struct CountdownTimer: View {
         }
         .onReceive(timer) { _ in
             let remaining = end.timeIntervalSinceNow
+            
             if remaining <= 0 {
                 timeRemaining = 0
                 timeout = true
