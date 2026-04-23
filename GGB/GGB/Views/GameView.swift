@@ -16,7 +16,7 @@ struct GameView: View {
     @State var tipCounter: Int = 0
     @State var timeRemaining: TimeInterval = 2 * 60
     let totalTime: TimeInterval = 2 * 60
-    @State var enigma: Int = 1
+    @State var riddle: Int = 1
     
     var progress: Double {
         let remaining = max(timeRemaining, 0)
@@ -32,7 +32,6 @@ struct GameView: View {
             VStack{
                 CountdownTimer(end: endTime, timeRemaining: $timeRemaining, timeout: $timeout)
                 
-                
                 Text("tempo restante")
                     .font(.caption)
                     .padding(5)
@@ -44,8 +43,8 @@ struct GameView: View {
                     Tips()
                 } else if (showSolution){
                     Solution()
-                } else {
-                    Keyboard()
+                } else { //mudar quando tiver enigma 1
+                    Riddle2(riddle: $riddle)
                 }
                 
                 if (showTip || showSolution){
@@ -109,6 +108,11 @@ struct GameView: View {
         }
         .onChange(of: timeRemaining) {
             if timeRemaining == 0 {
+                path.append(.end)
+            }
+        }
+        .onChange(of: riddle){
+            if riddle == 2{
                 path.append(.end)
             }
         }
