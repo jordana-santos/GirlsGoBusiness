@@ -16,11 +16,11 @@ struct GameView: View {
     @State var tipCounter: Int = 0
     @State var timeRemaining: TimeInterval = 2 * 60
     let totalTime: TimeInterval = 2 * 60
+    @State var enigma: Int = 1
     
     var progress: Double {
         let remaining = max(timeRemaining, 0)
         let raw = 1.0 - (remaining / totalTime)
-
         let minLevel = 0.05
         return minLevel + (1 - minLevel) * raw
     }
@@ -30,8 +30,8 @@ struct GameView: View {
             WaterBackground(progress: progress)
             
             VStack{
-
                 CountdownTimer(end: endTime, timeRemaining: $timeRemaining, timeout: $timeout)
+                
                 
                 Text("tempo restante")
                     .font(.caption)
@@ -106,6 +106,11 @@ struct GameView: View {
         .onAppear {
             endTime = Date().addingTimeInterval(totalTime)
             timeRemaining = totalTime
+        }
+        .onChange(of: timeRemaining) {
+            if timeRemaining == 0 {
+                path.append(.end)
+            }
         }
     }
 }
