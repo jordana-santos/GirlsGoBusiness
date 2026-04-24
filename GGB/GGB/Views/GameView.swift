@@ -9,13 +9,13 @@ import SwiftUI
 
 struct GameView: View {
     @Binding var path: [Route]
-    @State private var endTime: Date = Date().addingTimeInterval(2 * 60)
+    @State private var endTime: Date = Date().addingTimeInterval(28 * 60)
     @State var timeout: Bool = false
     @State var showTip: Bool = false
     @State var showSolution: Bool = false
-    @State var tipCounter: Int = 0
-    @State var timeRemaining: TimeInterval = 2 * 60
-    let totalTime: TimeInterval = 2 * 60
+    @State var tipCounter: Int = -1
+    @State var timeRemaining: TimeInterval = 28 * 60
+    let totalTime: TimeInterval = 28 * 60
     @State var riddle: Int = 1
     
     var progress: Double {
@@ -40,10 +40,12 @@ struct GameView: View {
                 Spacer()
                 
                 if (showTip){
-                    Tips()
+                    Tips(riddle: $riddle, counter: $tipCounter)
                 } else if (showSolution){
-                    Solution()
-                } else { //mudar quando tiver enigma 1
+                    Solution(riddle: $riddle)
+                } else if riddle == 1 {
+                    Riddle2(riddle: $riddle)
+                }else if riddle == 2 {
                     Riddle2(riddle: $riddle)
                 }
                 
@@ -79,6 +81,11 @@ struct GameView: View {
                                         .foregroundColor(.black)
                                 )
                         }
+                        .disabled(tipCounter >= 2)
+                        .opacity(tipCounter >= 2 ? 0.5 : 1.0)
+                        .onChange(of: riddle){
+                            if riddle == 2{ tipCounter = -1 }
+                        }
                         
                         Spacer()
                         Button{
@@ -95,8 +102,8 @@ struct GameView: View {
                                 .padding(.horizontal, 35)
                                 .padding(.vertical, 15)
                         }
-                        .disabled(tipCounter == 0)
-                        .opacity(tipCounter == 0 ? 0.5 : 1.0)
+                        .disabled(tipCounter == -1)
+                        .opacity(tipCounter == -1 ? 0.5 : 1.0)
                     }
                 }
             }
@@ -112,7 +119,7 @@ struct GameView: View {
             }
         }
         .onChange(of: riddle){
-            if riddle == 2{
+            if riddle == 3{
                 path.append(.end)
             }
         }

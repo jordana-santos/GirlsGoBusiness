@@ -18,7 +18,7 @@ public struct CountdownTimer: View {
         VStack(spacing: 20) {
             ZStack{
                 Rectangle()
-                    .frame(width: 350, height: 100)
+                    .frame(width: 380, height: 100)
                     .foregroundColor(.gray)
                     .cornerRadius(15)
                 

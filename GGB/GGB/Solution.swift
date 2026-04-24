@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Solution: View {
+    @Binding var riddle: Int
     
     var body: some View {
         VStack{
@@ -17,9 +18,13 @@ struct Solution: View {
                     .foregroundColor(.gray)
                     .cornerRadius(15)
                     .padding(5)
-                
-                Text("solucao")
-                    .padding(5)
+                if riddle == 1 {
+                    Text("solucao 1")
+                        .padding(5)
+                } else if riddle == 2 {
+                    Text("solucao 2")
+                        .padding(5)
+                }
             }
             Spacer()
         }
