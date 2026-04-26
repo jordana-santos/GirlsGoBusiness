@@ -16,7 +16,12 @@ struct GameView: View {
     @State var tipCounter: Int = -1
     @State var timeRemaining: TimeInterval = 28 * 60
     let totalTime: TimeInterval = 28 * 60
-    @State var riddle: Int = 1
+    @State var page: Int = 1
+    @State var packageInfo = 1
+    
+    @State private var minigameAllFilled: Bool = false
+    @State private var minigameCorrect: Bool = false
+    @State private var triggerMinigameCheck: Bool = false
     
     var progress: Double {
         let remaining = max(timeRemaining, 0)
@@ -34,19 +39,24 @@ struct GameView: View {
                 
                 Text("tempo restante")
                     .font(.caption)
-                    .padding(5)
                     .padding(.bottom, 10)
                 
                 Spacer()
                 
-                if (showTip){
-                    Tips(riddle: $riddle, counter: $tipCounter)
-                } else if (showSolution){
-                    Solution(riddle: $riddle)
-                } else if riddle == 1 {
-                    Riddle2(riddle: $riddle)
-                }else if riddle == 2 {
-                    Riddle2(riddle: $riddle)
+                if showTip {
+                    Tips(riddle: $page, counter: $tipCounter)
+                } else if showSolution {
+                    Solution(riddle: $page)
+                } else {
+                    switch page {
+                    case 1: MinigameView(allCorrect: $minigameCorrect,
+                                         allFilled: $minigameAllFilled,
+                                         shouldCheck: $triggerMinigameCheck)
+                    case 2: PackageInfo(page: $page)
+                    case 3: Riddle2(page: $page)
+                    case 4: PackageInfo(page: $page)
+                    default: EmptyView()
+                    }
                 }
                 
                 if (showTip || showSolution){
@@ -63,48 +73,22 @@ struct GameView: View {
                                     .foregroundColor(.black)
                                     .font(.system(size: 18))
                             )
-                            .padding(5)
                     }
                 } else {
-                    HStack(){
-                        Button{
-                            showTip = true
-                            tipCounter += 1
-                        }label: {
-                            Circle()
-                                .frame(width: 60, height: 60)
-                                .padding(.horizontal, 35)
-                                .padding(.vertical, 15)
-                                .foregroundColor(.gray)
-                                .overlay(
-                                    Image(systemName: "lightbulb.max")
-                                        .foregroundColor(.black)
-                                )
+                    Footer(
+                        tipCounter: $tipCounter,
+                        page: $page,
+                        showTip: $showTip,
+                        showSolution: $showSolution,
+                        okDisabled: page == 1 && !minigameAllFilled,
+                        onOK: {
+                            if page == 1 {
+                                triggerMinigameCheck = true
+                            } else {
+                                page += 1
+                            }
                         }
-                        .disabled(tipCounter >= 2)
-                        .opacity(tipCounter >= 2 ? 0.5 : 1.0)
-                        .onChange(of: riddle){
-                            if riddle == 2{ tipCounter = -1 }
-                        }
-                        
-                        Spacer()
-                        Button{
-                            showSolution = true
-                        } label: {
-                            Rectangle()
-                                .frame(width: 150, height: 50)
-                                .foregroundColor(.gray)
-                                .cornerRadius(15)
-                                .overlay(
-                                    Text("Solução")
-                                        .foregroundColor(.black)
-                                )
-                                .padding(.horizontal, 35)
-                                .padding(.vertical, 15)
-                        }
-                        .disabled(tipCounter == -1)
-                        .opacity(tipCounter == -1 ? 0.5 : 1.0)
-                    }
+                    )
                 }
             }
             .zIndex(1)
@@ -118,10 +102,22 @@ struct GameView: View {
                 path.append(.end)
             }
         }
-        .onChange(of: riddle){
-            if riddle == 3{
+        .onChange(of: page){
+            if page == 5{
                 path.append(.end)
             }
+            
+            if page != 1 {
+                minigameAllFilled = false
+                minigameCorrect = false
+                triggerMinigameCheck = false
+            }
         }
+        .onChange(of: minigameCorrect) {
+            if minigameCorrect {
+                page += 1
+            }
+        }
+        
     }
 }

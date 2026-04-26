@@ -18,13 +18,22 @@ public struct CountdownTimer: View {
         VStack(spacing: 20) {
             ZStack{
                 Rectangle()
-                    .frame(width: 380, height: 100)
-                    .foregroundColor(.gray)
-                    .cornerRadius(15)
+                    .fill(
+                        EllipticalGradient(
+                            stops: [
+                                Gradient.Stop(color: Color("gradientStart"), location: 0.00),
+                                Gradient.Stop(color: Color("gradientEnd"), location: 2.00),
+                            ],
+                            center: UnitPoint(x: 0.5, y: 0.5)
+                        )
+                    )
+                    .frame(width: .infinity, height: 100)
+                    .cornerRadius(20)
+                    .padding(.horizontal)
                 
                 Text(timeString(from: timeRemaining))
                     .font(.system(size: 64, weight: .bold, design: .monospaced))
-                    .foregroundColor(.black)
+                    .foregroundColor(Color("red"))
             }
         }
         .onReceive(timer) { _ in

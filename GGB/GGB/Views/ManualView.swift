@@ -11,21 +11,26 @@ struct ManualView: View {
     @Binding var path: [Route]
     
     var body: some View {
-        VStack {
-            ZStack {
-                Rectangle()
-                    .frame(width: 360, height: 600)
-                    .foregroundColor(.gray)
-                    .cornerRadius(15)
-                    .padding(5)
-                    
-                
-                ScrollView(){
-                    Text("conteudo do manual")
+        ZStack{
+            Color("background")
+                .ignoresSafeArea()
+            
+            VStack {
+                ZStack {
+                    Rectangle()
+                        .frame(width: .infinity, height: 600)
+                        .foregroundColor(Color("purple"))
+                        .cornerRadius(15)
                         .padding()
+                        
+                    
+                    ScrollView(){
+                        Text("conteudo do manual")
+                            .padding()
+                    }
+                    .frame(width: 380, height: 600)
+                    .padding(5)
                 }
-                .frame(width: 360, height: 600)
-                .padding(5)
             }
         }
     }

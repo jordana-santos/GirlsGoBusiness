@@ -1,0 +1,71 @@
+//
+//  Footer.swift
+//  GGB
+//
+//  Created by Jordana Lourenço Santos on 26/04/26.
+//
+
+import SwiftUI
+
+struct Footer: View {
+    @Binding var tipCounter: Int
+    @Binding var page: Int
+    @Binding var showTip: Bool
+    @Binding var showSolution: Bool
+    var okDisabled : Bool = false
+    var onOK: () -> Void = {}
+    
+    var body: some View {
+        HStack(){
+            Button{
+                showTip = true
+                tipCounter += 1
+            }label: {
+                Circle()
+                    .frame(width: 60, height: 60)
+                    .padding()
+                    .foregroundColor(Color("yellow"))
+                    .overlay(
+                        Image(systemName: "lightbulb.max.fill")
+                            .foregroundColor(Color("brown"))
+                    )
+            }
+            .disabled(tipCounter >= 2)
+            .opacity(tipCounter >= 2 ? 0.5 : 1.0)
+            .onChange(of: page){
+                if page == 3 { tipCounter = -1 }
+            }
+            
+            Button{
+                showSolution = true
+            } label: {
+                Rectangle()
+                    .frame(width: 120, height: 40)
+                    .foregroundColor(.gray)
+                    .cornerRadius(10)
+                    .overlay(
+                        Text("Solução")
+                            .foregroundColor(.black)
+                    )
+            }
+            .disabled(tipCounter == -1)
+            .opacity(tipCounter == -1 ? 0.5 : 1.0)
+            
+            Spacer()
+            
+            if page != 3 {
+                Button {
+                    onOK()
+                } label: {
+                    Rectangle()
+                        .frame(width: 60, height: 40)
+                        .foregroundColor(okDisabled ? .gray : Color("green"))
+                        .cornerRadius(10)
+                        .overlay(Text("OK").foregroundColor(.white))
+                        .padding()
+                }
+                .disabled(okDisabled)
+            }
+        }
+    }
+}

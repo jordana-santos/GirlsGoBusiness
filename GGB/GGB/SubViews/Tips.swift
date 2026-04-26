@@ -15,10 +15,10 @@ struct Tips: View {
         VStack{
             ZStack(){
                 Rectangle()
-                    .frame(width: 350, height: 400)
+                    .frame(width: .infinity, height: 350)
                     .foregroundColor(.gray)
                     .cornerRadius(15)
-                    .padding(5)
+                    .padding()
                 
                 if riddle == 1{
                     Text(TipsRiddle1()[counter])

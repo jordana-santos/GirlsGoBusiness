@@ -13,8 +13,7 @@ struct WaterBackground: View {
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .bottom) {
-                
-                Color.white
+                Color("background")
                 
                 Rectangle()
                     .fill(

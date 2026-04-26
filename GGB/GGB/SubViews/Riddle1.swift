@@ -24,7 +24,7 @@ private let allItems: [TileR1] = [
 
 struct Riddle1: View {
     var isComplete: Bool = false
-    @Binding var riddle: Int
+    @Binding var page: Int
     
     var body: some View {
         VStack{
@@ -67,6 +67,6 @@ struct Riddle1: View {
             }
             Spacer()
         }
-        .onChange(of: isComplete) { riddle += 1 }
+        .onChange(of: isComplete) { page += 1 }
     }
 }

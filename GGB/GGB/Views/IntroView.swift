@@ -11,35 +11,40 @@ struct IntroView: View {
     @Binding var path: [Route]
     
     var body: some View {
-        VStack {
-            ZStack {
-                Rectangle()
-                    .frame(width: 360, height: 600)
-                    .foregroundColor(.gray)
-                    .cornerRadius(15)
-                    .padding(5)
-                
-                ScrollView(){
-                    Text("introdução")
-                        .padding()
-                }
-                .frame(width: 380, height: 600)
-                .padding(5)
-            }
+        ZStack{
+            Color("background")
+                .ignoresSafeArea()
             
-            Button {
-                path.append(.game)
-            } label: {
-                Rectangle()
-                    .frame(width: 360, height: 50)
-                    .cornerRadius(15)
-                    .foregroundColor(Color.teal)
-                    .overlay(
-                        Text("iniciar timer")
-                            .foregroundColor(.black)
-                            .font(.system(size: 18))
-                    )
+            VStack {
+                ZStack {
+                    Rectangle()
+                        .frame(width: .infinity, height: 600)
+                        .foregroundColor(Color("purple"))
+                        .cornerRadius(15)
+                        .padding()
+                    
+                    ScrollView(){
+                        Text("introdução")
+                            .padding()
+                    }
+                    .frame(width: 380, height: 600)
                     .padding(5)
+                }
+                
+                Button {
+                    path.append(.game)
+                } label: {
+                    Rectangle()
+                        .frame(width: 350, height: 50)
+                        .cornerRadius(15)
+                        .foregroundColor(Color("green"))
+                        .overlay(
+                            Text("Iniciar timer")
+                                .foregroundColor(.white)
+                                .font(.system(size: 18))
+                        )
+                        .padding(5)
+                }
             }
         }
     }

@@ -11,6 +11,13 @@ struct EndingView: View {
     @Binding var path: [Route]
     
     var body: some View {
-        Text("EndingView")
+        ZStack{
+            Color("background")
+                .ignoresSafeArea()
+            
+            VStack(){
+                Text("EndingView")
+            }
+        }
     }
 }

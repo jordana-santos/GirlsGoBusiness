@@ -14,10 +14,11 @@ struct Solution: View {
         VStack{
             ZStack(){
                 Rectangle()
-                    .frame(width: 350, height: 400)
+                    .frame(width: .infinity, height: 350)
                     .foregroundColor(.gray)
                     .cornerRadius(15)
-                    .padding(5)
+                    .padding()
+                
                 if riddle == 1 {
                     Text("solucao 1")
                         .padding(5)

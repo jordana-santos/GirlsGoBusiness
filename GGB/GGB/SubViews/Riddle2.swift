@@ -14,9 +14,9 @@ struct Tile: Identifiable {
 }
 
 private let groupInfo: [(title: String, description: String, color: Color)] = [
-    ("grupo 1", "descricao grupo 1", .blue),
-    ("grupo 2", "descricao grupo 1", .purple),
-    ("grupo 3",  "descricao grupo 1", .brown),
+    ("grupo 1", "descricao grupo 1", Color("group1")),
+    ("grupo 2", "descricao grupo 1", Color("group2")),
+    ("grupo 3",  "descricao grupo 1", Color("group3")),
 ]
 
 private let allItems: [Tile] = [
@@ -38,25 +38,28 @@ public struct Riddle2: View {
     @State private var shaking = false
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 12), count: 3)
     var isComplete: Bool { solvedIndices.count == groupInfo.count }
-    @Binding var riddle: Int
+    @Binding var page: Int
 
     public var body: some View {
-        ZStack {
-            Rectangle()
-                .frame(width: 350, height: 450)
-                .foregroundColor(.gray)
-                .cornerRadius(15)
+        VStack{
+            ZStack {
+                Rectangle()
+                    .frame(width: .infinity, height: 350)
+                    .foregroundColor(Color("purple"))
+                    .cornerRadius(15)
+                    .padding(10)
 
-            VStack(spacing: 12) {
-                solvedBanners
-                tilesGrid
+                VStack() {
+                    solvedBanners
+                    tilesGrid
+                }
+                .padding(15)
             }
-            .padding(16)
-            .frame(width: 350)
-        }
-        .animation(.easeInOut, value: solvedIndices.count)
-        .onChange(of: isComplete) {
-            riddle += 1
+            .animation(.easeInOut, value: solvedIndices.count)
+            .onChange(of: isComplete) {
+                page += 1
+            }
+            Spacer()
         }
     }
 
@@ -64,21 +67,25 @@ public struct Riddle2: View {
         ForEach(solvedIndices, id: \.self) { idx in
             let info = groupInfo[idx]
             RoundedRectangle(cornerRadius: 12)
-                .fill(info.color.opacity(0.5))
+                .fill(info.color)
+                .frame(height: 80)
                 .overlay(
                     VStack(alignment: .center) {
-                        Text(info.title).bold()
-                        Text(info.description).font(.caption).opacity(0.8)
+                        Text(info.title)
+                            .bold()
+                            .foregroundColor(.white)
+                        
+                        Text(info.description)
+                            .font(.caption)
+                            .foregroundColor(.white)
                     }
                     .padding(.horizontal, 12)
                 )
-                .overlay(RoundedRectangle(cornerRadius: 12).stroke(info.color, lineWidth: 1.5))
-                .frame(height: 80)
         }
     }
 
     private var tilesGrid: some View {
-        LazyVGrid(columns: columns, spacing: 12) {
+        LazyVGrid(columns: columns, spacing: 8) {
             ForEach(items) { item in
                 TileCell(label: item.label, isSelected: selected.contains(item.id))
                     .onTapGesture { toggle(item) }
@@ -101,13 +108,13 @@ public struct Riddle2: View {
             Text(label)
                 .font(.headline)
                 .multilineTextAlignment(.center)
-                .frame(width: 90, height: 60)
-                .background(isSelected ? Color.accentColor.opacity(0.4) : Color.white.opacity(0.2))
+                .frame(width: 110, height: 90)
+                .background(Color("cardGreen"))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(isSelected ? Color.accentColor : Color.clear, lineWidth: 2)
+                        .stroke(isSelected ? Color("purpleSelected") : Color.clear, lineWidth: 8)
                 )
-                .cornerRadius(12)
+                .cornerRadius(10)
         }
     }
 
