@@ -27,6 +27,7 @@ struct ManualView: View {
                     ScrollView(){
                         Text("conteudo do manual")
                             .padding()
+                            .font(.custom("Grenze-Regular", size: 20))
                     }
                     .frame(width: 380, height: 600)
                     .padding(5)

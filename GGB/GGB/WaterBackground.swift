@@ -18,7 +18,7 @@ struct WaterBackground: View {
                 Rectangle()
                     .fill(
                         LinearGradient(
-                            colors: [.blue, .cyan],
+                            colors: [Color("waterEnd"), Color("waterStart")],
                             startPoint: .bottom,
                             endPoint: .top
                         )

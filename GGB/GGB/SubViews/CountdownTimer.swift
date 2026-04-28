@@ -32,7 +32,7 @@ public struct CountdownTimer: View {
                     .padding(.horizontal)
                 
                 Text(timeString(from: timeRemaining))
-                    .font(.system(size: 64, weight: .bold, design: .monospaced))
+                    .font(.custom("Grenze-Bold", size: 70))
                     .foregroundColor(Color("red"))
             }
         }

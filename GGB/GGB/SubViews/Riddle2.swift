@@ -14,21 +14,21 @@ struct Tile: Identifiable {
 }
 
 private let groupInfo: [(title: String, description: String, color: Color)] = [
-    ("grupo 1", "descricao grupo 1", Color("group1")),
-    ("grupo 2", "descricao grupo 1", Color("group2")),
-    ("grupo 3",  "descricao grupo 1", Color("group3")),
+    ("Menstruação", "Sangramento, Pano absorvente externo, Recipiente de coleta interno", Color("group1")),
+    ("Cansaço", "Fadiga, Movimento do corpo, Descanso intencional", Color("group2")),
+    ("Cólica",  "Dor ou contração, Raiz de gengibre, Calor aplicado", Color("group3")),
 ]
 
 private let allItems: [Tile] = [
-    Tile(label: "g1", groupIndex: 0),
-    Tile(label: "g1", groupIndex: 0),
-    Tile(label: "g1",   groupIndex: 0),
-    Tile(label: "g2",  groupIndex: 1),
-    Tile(label: "g2",   groupIndex: 1),
-    Tile(label: "g2",    groupIndex: 1),
-    Tile(label: "g3",   groupIndex: 2),
-    Tile(label: "g3",    groupIndex: 2),
-    Tile(label: "g3",    groupIndex: 2),
+    Tile(label: "YARA-INI", groupIndex: 0),
+    Tile(label: "ORABVE", groupIndex: 0),
+    Tile(label: "IXACOLE", groupIndex: 0),
+    Tile(label: "YARA-PES", groupIndex: 1),
+    Tile(label: "IXAFLU", groupIndex: 1),
+    Tile(label: "ORAREPO", groupIndex: 1),
+    Tile(label: "YARA-DORI", groupIndex: 2),
+    Tile(label: "ORAKALI", groupIndex: 2),
+    Tile(label: "IXAMORNI", groupIndex: 2),
 ]
 
 public struct Riddle2: View {
@@ -38,7 +38,7 @@ public struct Riddle2: View {
     @State private var shaking = false
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 12), count: 3)
     var isComplete: Bool { solvedIndices.count == groupInfo.count }
-    @Binding var page: Int
+    @Binding var showOk: Bool
 
     public var body: some View {
         VStack{
@@ -57,7 +57,7 @@ public struct Riddle2: View {
             }
             .animation(.easeInOut, value: solvedIndices.count)
             .onChange(of: isComplete) {
-                page += 1
+                showOk = true
             }
             Spacer()
         }
@@ -68,16 +68,17 @@ public struct Riddle2: View {
             let info = groupInfo[idx]
             RoundedRectangle(cornerRadius: 12)
                 .fill(info.color)
-                .frame(height: 80)
+                .frame(height: 100)
                 .overlay(
                     VStack(alignment: .center) {
                         Text(info.title)
-                            .bold()
+                            .font(.custom("Grenze-Bold", size: 24))
                             .foregroundColor(.white)
                         
                         Text(info.description)
-                            .font(.caption)
+                            .font(.custom("Grenze-Regular", size: 20))
                             .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
                     }
                     .padding(.horizontal, 12)
                 )
@@ -106,7 +107,7 @@ public struct Riddle2: View {
 
         var body: some View {
             Text(label)
-                .font(.headline)
+                .font(.custom("ShadowsIntoLightTwo-Regular", size: 20))
                 .multilineTextAlignment(.center)
                 .frame(width: 110, height: 90)
                 .background(Color("cardGreen"))
@@ -118,7 +119,6 @@ public struct Riddle2: View {
         }
     }
 
-    // MARK: - Logic
     private func toggle(_ item: Tile) {
         if selected.contains(item.id) {
             selected.remove(item.id)

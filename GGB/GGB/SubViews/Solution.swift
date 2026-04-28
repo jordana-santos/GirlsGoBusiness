@@ -8,23 +8,28 @@
 import SwiftUI
 
 struct Solution: View {
-    @Binding var riddle: Int
+    @Binding var page: Int
     
     var body: some View {
         VStack{
             ZStack(){
                 Rectangle()
                     .frame(width: .infinity, height: 350)
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color("purple"))
                     .cornerRadius(15)
                     .padding()
                 
-                if riddle == 1 {
+                if page == 1 {
                     Text("solucao 1")
                         .padding(5)
-                } else if riddle == 2 {
+                        .font(.custom("Grenze-Regular", size: 20))
+                        .foregroundStyle(.black)
+                    
+                } else if page == 2 {
                     Text("solucao 2")
                         .padding(5)
+                        .font(.custom("Grenze-Regular", size: 20))
+                        .foregroundStyle(.black)
                 }
             }
             Spacer()

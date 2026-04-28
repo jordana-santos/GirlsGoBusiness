@@ -9,19 +9,19 @@ import SwiftUI
 
 struct GameView: View {
     @Binding var path: [Route]
-    @State private var endTime: Date = Date().addingTimeInterval(28 * 60)
+    @State private var endTime: Date = Date().addingTimeInterval(2 * 60)
     @State var timeout: Bool = false
     @State var showTip: Bool = false
     @State var showSolution: Bool = false
     @State var tipCounter: Int = -1
-    @State var timeRemaining: TimeInterval = 28 * 60
-    let totalTime: TimeInterval = 28 * 60
+    @State var timeRemaining: TimeInterval = 2 * 60
+    let totalTime: TimeInterval = 2 * 60
     @State var page: Int = 1
     @State var packageInfo = 1
-    
-    @State private var minigameAllFilled: Bool = false
-    @State private var minigameCorrect: Bool = false
-    @State private var triggerMinigameCheck: Bool = false
+    @State var allFilled: Bool = false
+    @State var isCorrect: Bool = false
+    @State var triggerCheck: Bool = false
+    @State var showOk: Bool = true
     
     var progress: Double {
         let remaining = max(timeRemaining, 0)
@@ -38,22 +38,22 @@ struct GameView: View {
                 CountdownTimer(end: endTime, timeRemaining: $timeRemaining, timeout: $timeout)
                 
                 Text("tempo restante")
-                    .font(.caption)
-                    .padding(.bottom, 10)
+                    .font(.custom("Grenze-Regular", size: 18))
+                    .foregroundStyle(.black)
                 
                 Spacer()
                 
                 if showTip {
-                    Tips(riddle: $page, counter: $tipCounter)
+                    Tips(page: $page, counter: $tipCounter)
                 } else if showSolution {
-                    Solution(riddle: $page)
+                    Solution(page: $page)
                 } else {
                     switch page {
-                    case 1: MinigameView(allCorrect: $minigameCorrect,
-                                         allFilled: $minigameAllFilled,
-                                         shouldCheck: $triggerMinigameCheck)
+                    case 1: Riddle1(allCorrect: $isCorrect,
+                                         allFilled: $allFilled,
+                                         shouldCheck: $triggerCheck)
                     case 2: PackageInfo(page: $page)
-                    case 3: Riddle2(page: $page)
+                    case 3: Riddle2(showOk: $showOk)
                     case 4: PackageInfo(page: $page)
                     default: EmptyView()
                     }
@@ -67,11 +67,11 @@ struct GameView: View {
                         Rectangle()
                             .frame(width: 360, height: 50)
                             .cornerRadius(15)
-                            .foregroundColor(Color.teal)
+                            .foregroundColor(Color("green"))
                             .overlay(
                                 Text("ok")
                                     .foregroundColor(.black)
-                                    .font(.system(size: 18))
+                                    .font(.custom("Grenze-Regular", size: 20))
                             )
                     }
                 } else {
@@ -80,14 +80,15 @@ struct GameView: View {
                         page: $page,
                         showTip: $showTip,
                         showSolution: $showSolution,
-                        okDisabled: page == 1 && !minigameAllFilled,
+                        okDisabled: page == 1 && !allFilled,
                         onOK: {
                             if page == 1 {
-                                triggerMinigameCheck = true
+                                triggerCheck = true
                             } else {
                                 page += 1
                             }
-                        }
+                        },
+                        showOk: $showOk
                     )
                 }
             }
@@ -106,15 +107,17 @@ struct GameView: View {
             if page == 5{
                 path.append(.end)
             }
-            
             if page != 1 {
-                minigameAllFilled = false
-                minigameCorrect = false
-                triggerMinigameCheck = false
+                allFilled = false
+                isCorrect = false
+                triggerCheck = false
+            }
+            if page == 3 {
+                showOk = false
             }
         }
-        .onChange(of: minigameCorrect) {
-            if minigameCorrect {
+        .onChange(of: isCorrect) {
+            if isCorrect {
                 page += 1
             }
         }

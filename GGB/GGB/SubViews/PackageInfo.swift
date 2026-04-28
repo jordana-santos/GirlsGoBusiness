@@ -22,15 +22,23 @@ struct PackageInfo: View {
                 VStack{
                     if page == 2 {
                         Text("Parabens!")
-                            .font(Font.title.bold())
-                        Text("Pegue o pacote x para iniciar o próximo enigma.")
-                            .padding(5)
+                            .font(.custom("Grenze-Bold", size: 28))
+                            .foregroundStyle(.black)
+                        
+                        Text("Pegue o pacote 4 para iniciar o próximo enigma.")
+                            .font(.custom("Grenze-Regular", size: 20))
+                            .foregroundStyle(.black)
+                            .multilineTextAlignment(.center)
                         
                     } else if page == 4 {
                         Text("Parabens!")
-                            .font(Font.title.bold())
+                            .font(.custom("Grenze-Bold", size: 28))
+                            .foregroundStyle(.black)
+                        
                         Text("Você conseguiu escapar e salvar a arqueóloga!")
-                            .padding(5)
+                            .font(.custom("Grenze-Regular", size: 20))
+                            .foregroundStyle(.black)
+                            .multilineTextAlignment(.center)
                     }
                 }
             }

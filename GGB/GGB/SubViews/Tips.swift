@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Tips: View {
-    @Binding var riddle: Int
+    @Binding var page: Int
     @Binding var counter: Int
     
     var body: some View {
@@ -16,16 +16,20 @@ struct Tips: View {
             ZStack(){
                 Rectangle()
                     .frame(width: .infinity, height: 350)
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color("purple"))
                     .cornerRadius(15)
                     .padding()
                 
-                if riddle == 1{
+                if page == 1 {
                     Text(TipsRiddle1()[counter])
                         .padding(5)
-                } else if riddle == 2{
+                        .font(.custom("Grenze-Regular", size: 20))
+                        .foregroundStyle(.black)
+                } else if page == 3 {
                     Text(TipsRiddle2()[counter])
                         .padding(5)
+                        .font(.custom("Grenze-Regular", size: 20))
+                        .foregroundStyle(.black)
                 }
             }
             Spacer()

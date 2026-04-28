@@ -14,6 +14,7 @@ struct Footer: View {
     @Binding var showSolution: Bool
     var okDisabled : Bool = false
     var onOK: () -> Void = {}
+    @Binding var showOk: Bool
     
     var body: some View {
         HStack(){
@@ -41,11 +42,12 @@ struct Footer: View {
             } label: {
                 Rectangle()
                     .frame(width: 120, height: 40)
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color("blue"))
                     .cornerRadius(10)
                     .overlay(
                         Text("Solução")
-                            .foregroundColor(.black)
+                            .foregroundColor(.white)
+                            .font(.custom("Grenze-Regular", size: 24))
                     )
             }
             .disabled(tipCounter == -1)
@@ -53,7 +55,7 @@ struct Footer: View {
             
             Spacer()
             
-            if page != 3 {
+            if showOk {
                 Button {
                     onOK()
                 } label: {
@@ -61,7 +63,11 @@ struct Footer: View {
                         .frame(width: 60, height: 40)
                         .foregroundColor(okDisabled ? .gray : Color("green"))
                         .cornerRadius(10)
-                        .overlay(Text("OK").foregroundColor(.white))
+                        .overlay(
+                            Text("OK")
+                                .foregroundColor(.white)
+                                .font(.custom("Grenze-Regular", size: 24))
+                        )
                         .padding()
                 }
                 .disabled(okDisabled)

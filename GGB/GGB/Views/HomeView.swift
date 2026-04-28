@@ -23,22 +23,28 @@ struct HomeView: View {
                     } label: {
                         Rectangle()
                             .frame(width: 350, height: 50)
-                            .cornerRadius(15)
-                            .foregroundColor(Color("green"))
+                            .cornerRadius(12)
+                            .foregroundColor(Color("group1"))
                             .overlay(
                                 Text("Iniciar jogo")
                                     .foregroundColor(.white)
-                                    .font(.system(size: 18))
+                                    .font(.custom("Grenze-Regular", size: 20))
+                                    .fontWeight(.bold)
                             )
-                            .padding(5)
                     }
                     
                     Button {
                         path.append(.manual)
                     } label: {
-                        Text("como jogar?")
-                            .foregroundColor(.black)
-                            .font(.callout)
+                        Rectangle()
+                            .frame(width: 350, height: 45)
+                            .cornerRadius(12)
+                            .foregroundColor(Color("blueButton"))
+                            .overlay(
+                                Text("Como jogar")
+                                    .foregroundColor(.white)
+                                    .font(.custom("Grenze-Regular", size: 18))
+                            )
                     }
                     .padding(5)
                 }

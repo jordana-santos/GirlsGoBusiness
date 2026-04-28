@@ -17,6 +17,7 @@ struct EndingView: View {
             
             VStack(){
                 Text("EndingView")
+                    .font(.custom("Grenze-Regular", size: 20))
             }
         }
     }
