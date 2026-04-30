@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var path: [Route] = []
+    @State var goodEnding: Bool = true
     
     var body: some View {
         NavigationStack(path: $path){
@@ -51,7 +52,8 @@ struct HomeView: View {
             }
             .navigationDestination(for: Route.self) { page in
                 page.view(
-                    path: $path
+                    path: $path,
+                    goodEnding: $goodEnding
                 )
             }
         }

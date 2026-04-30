@@ -9,37 +9,32 @@ import SwiftUI
 
 struct PackageInfo: View {
     @Binding var page: Int
+    let texto1: String = """
+        Parabéns, vocês estão chegando mais perto de encontrar a Professora!
+
+        Vocês encontram algo no chão. (Pegue o pacote 4)
+
+        Nas paredes do templo, mais um enigma os espera. (Pegue o pacote 5)
+    """
+    
+    let texto2: String = ""
     
     var body: some View {
         VStack(alignment: .center){
             ZStack{
                 Rectangle()
-                    .frame(width: .infinity, height: 200)
+                    .frame(width: .infinity, height: 300)
                     .foregroundColor(Color("purple"))
-                    .cornerRadius(15)
+                    .cornerRadius(12)
                     .padding()
                 
-                VStack{
-                    if page == 2 {
-                        Text("Parabens!")
-                            .font(.custom("Grenze-Bold", size: 28))
-                            .foregroundStyle(.black)
-                        
-                        Text("Pegue o pacote 4 para iniciar o próximo enigma.")
-                            .font(.custom("Grenze-Regular", size: 20))
-                            .foregroundStyle(.black)
-                            .multilineTextAlignment(.center)
-                        
-                    } else if page == 4 {
-                        Text("Parabens!")
-                            .font(.custom("Grenze-Bold", size: 28))
-                            .foregroundStyle(.black)
-                        
-                        Text("Você conseguiu escapar e salvar a arqueóloga!")
-                            .font(.custom("Grenze-Regular", size: 20))
-                            .foregroundStyle(.black)
-                            .multilineTextAlignment(.center)
-                    }
+                VStack(alignment: .center){
+                    Text(texto1)
+                        .font(.custom("Grenze-Regular", size: 20))
+                        .foregroundStyle(.black)
+                        .frame(width: 360, height: 300)
+                        .multilineTextAlignment(.center)
+                        .padding()
                 }
             }
             Spacer()

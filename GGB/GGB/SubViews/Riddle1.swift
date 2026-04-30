@@ -24,14 +24,14 @@ struct Riddle1: View {
            id: 0,
            tiles: ["r1left", "middle", "r1right"],
            options: ["tile1", "tile2", "tile3", "tile4", "tile5", "tile6"],
-           answerAsset: "tile2",
+           answerAsset: "tile3",
            defaultSlotAsset: "answer"
        ),
        PuzzleRow(
            id: 1,
            tiles: ["r2left", "middle", "r2right"],
            options: ["tile1", "tile2", "tile3", "tile4", "tile5", "tile6"],
-           answerAsset: "tile4",
+           answerAsset: "tile2",
            defaultSlotAsset: "answer"
        ),
     ]

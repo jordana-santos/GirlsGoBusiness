@@ -44,7 +44,7 @@ public struct Riddle2: View {
         VStack{
             ZStack {
                 Rectangle()
-                    .frame(width: .infinity, height: 350)
+                    .frame(width: .infinity, height: 340)
                     .foregroundColor(Color("purple"))
                     .cornerRadius(15)
                     .padding(10)
@@ -90,6 +90,7 @@ public struct Riddle2: View {
             ForEach(items) { item in
                 TileCell(label: item.label, isSelected: selected.contains(item.id))
                     .onTapGesture { toggle(item) }
+                    .id("\(item.id)-\(selected.contains(item.id))")
             }
         }
         .offset(x: shaking ? 12 : 0)
@@ -108,6 +109,7 @@ public struct Riddle2: View {
         var body: some View {
             Text(label)
                 .font(.custom("ShadowsIntoLightTwo-Regular", size: 20))
+                .foregroundStyle(.black)
                 .multilineTextAlignment(.center)
                 .frame(width: 110, height: 90)
                 .background(Color("cardGreen"))
@@ -136,10 +138,16 @@ public struct Riddle2: View {
         if allMatch {
             items.removeAll { selected.contains($0.id) }
             solvedIndices.append(groupIdx)
+            selected.removeAll()
         } else {
             shaking = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { shaking = false }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.shaking = false
+                withAnimation(nil) {
+                    self.selected.removeAll()
+                }
+            }
         }
-        selected.removeAll()
     }
+    
 }

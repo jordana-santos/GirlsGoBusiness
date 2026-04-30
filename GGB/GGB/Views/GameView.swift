@@ -9,19 +9,20 @@ import SwiftUI
 
 struct GameView: View {
     @Binding var path: [Route]
-    @State private var endTime: Date = Date().addingTimeInterval(2 * 60)
+    @State private var endTime: Date = Date().addingTimeInterval(28 * 60)
     @State var timeout: Bool = false
     @State var showTip: Bool = false
     @State var showSolution: Bool = false
     @State var tipCounter: Int = -1
-    @State var timeRemaining: TimeInterval = 2 * 60
-    let totalTime: TimeInterval = 2 * 60
+    @State var timeRemaining: TimeInterval = 28 * 60
+    let totalTime: TimeInterval = 28 * 60
     @State var page: Int = 1
     @State var packageInfo = 1
     @State var allFilled: Bool = false
     @State var isCorrect: Bool = false
     @State var triggerCheck: Bool = false
     @State var showOk: Bool = true
+    @Binding var goodEnding: Bool 
     
     var progress: Double {
         let remaining = max(timeRemaining, 0)
@@ -33,6 +34,7 @@ struct GameView: View {
     var body: some View {
         ZStack{
             WaterBackground(progress: progress)
+                .zIndex(0)
             
             VStack{
                 CountdownTimer(end: endTime, timeRemaining: $timeRemaining, timeout: $timeout)
@@ -54,45 +56,33 @@ struct GameView: View {
                                          shouldCheck: $triggerCheck)
                     case 2: PackageInfo(page: $page)
                     case 3: Riddle2(showOk: $showOk)
-                    case 4: PackageInfo(page: $page)
                     default: EmptyView()
                     }
                 }
-                
-                if (showTip || showSolution){
-                    Button {
-                        showTip = false
-                        showSolution = false
-                    } label: {
-                        Rectangle()
-                            .frame(width: 360, height: 50)
-                            .cornerRadius(15)
-                            .foregroundColor(Color("green"))
-                            .overlay(
-                                Text("ok")
-                                    .foregroundColor(.black)
-                                    .font(.custom("Grenze-Regular", size: 20))
-                            )
-                    }
-                } else {
-                    Footer(
-                        tipCounter: $tipCounter,
-                        page: $page,
-                        showTip: $showTip,
-                        showSolution: $showSolution,
-                        okDisabled: page == 1 && !allFilled,
-                        onOK: {
-                            if page == 1 {
-                                triggerCheck = true
-                            } else {
-                                page += 1
-                            }
-                        },
-                        showOk: $showOk
-                    )
-                }
+                Spacer()
             }
             .zIndex(1)
+            
+            VStack {
+                Spacer()
+                Footer(
+                    tipCounter: $tipCounter,
+                    page: $page,
+                    showTip: $showTip,
+                    showSolution: $showSolution,
+                    okDisabled: page == 1 && !allFilled,
+                    onOK: {
+                        if page == 1 {
+                            triggerCheck = true
+                        } else {
+                            page += 1
+                        }
+                    },
+                    showOk: $showOk
+                )
+            }
+            .zIndex(2)
+            
         }
         .onAppear {
             endTime = Date().addingTimeInterval(totalTime)
@@ -100,11 +90,12 @@ struct GameView: View {
         }
         .onChange(of: timeRemaining) {
             if timeRemaining == 0 {
+                goodEnding = false
                 path.append(.end)
             }
         }
         .onChange(of: page){
-            if page == 5{
+            if page == 4{
                 path.append(.end)
             }
             if page != 1 {
@@ -121,6 +112,7 @@ struct GameView: View {
                 page += 1
             }
         }
+        .navigationBarBackButtonHidden(true)
         
     }
 }

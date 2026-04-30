@@ -20,7 +20,8 @@ extension Route {
     @MainActor
     @ViewBuilder
     func view(
-        path: Binding<[Route]>
+        path: Binding<[Route]>,
+        goodEnding: Binding<Bool>
         
     ) -> some View {
         switch self {
@@ -31,9 +32,9 @@ extension Route {
         case .intro:
             IntroView(path: path)
         case .game:
-            GameView(path: path)
+            GameView(path: path, goodEnding: goodEnding)
         case .end:
-            EndingView(path: path)
+            EndingView(path: path, goodEnding: goodEnding)
         }
     }
 }

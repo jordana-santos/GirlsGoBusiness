@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EndingView: View {
     @Binding var path: [Route]
+    @Binding var goodEnding: Bool
     
     var body: some View {
         ZStack{
@@ -16,9 +17,41 @@ struct EndingView: View {
                 .ignoresSafeArea()
             
             VStack(){
-                Text("EndingView")
-                    .font(.custom("Grenze-Regular", size: 20))
+                Spacer()
+                if goodEnding {
+                    Text("Parabéns!")
+                        .font(.custom("Grenze-Regular", size: 24))
+                        .fontWeight(.bold)
+                        .padding()
+                    
+                    Text("Você conseguiu escapar a tempo e salvar a arqueóloga!")
+                        .font(.custom("Grenze-Regular", size: 20))
+                        .padding()
+                    
+                } else {
+                    Text("O tempo passa rápido e a maré nunca tardia. A água do mar cobre as paredes do templo e não há mais escapatória.")
+                        .font(.custom("Grenze-Regular", size: 20))
+                        .padding()
+                }
+                
+                Spacer()
+                
+                Button{
+                    path.removeAll()
+                } label: {
+                    Rectangle()
+                        .frame(width: 350, height: 50)
+                        .cornerRadius(12)
+                        .foregroundColor(Color("group1"))
+                        .overlay(
+                            Text("Voltar para o início")
+                                .foregroundColor(.white)
+                                .font(.custom("Grenze-Regular", size: 20))
+                                .fontWeight(.bold)
+                        )
+                }
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
