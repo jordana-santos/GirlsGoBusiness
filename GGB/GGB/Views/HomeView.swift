@@ -20,6 +20,22 @@ struct HomeView: View {
                 
                 VStack{
                     Spacer()
+                    
+                    Image("icon")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                        .cornerRadius(20)
+                        .padding()
+                        
+                    
+                    Text("Carmesim")
+                        .padding()
+                        .foregroundColor(.black)
+                        .font(.custom("Grenze-Regular", size: 42))
+                        
+                    
+                    Spacer()
                     Button {
                         path.append(.intro)
                     } label: {
@@ -30,8 +46,7 @@ struct HomeView: View {
                             .overlay(
                                 Text("Iniciar jogo")
                                     .foregroundColor(.white)
-                                    .font(.custom("Grenze-Regular", size: 20))
-                                    .fontWeight(.bold)
+                                    .font(.custom("Grenze-Bold", size: 20))
                             )
                     }
                     
