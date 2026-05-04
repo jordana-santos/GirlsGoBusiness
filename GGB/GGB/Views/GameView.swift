@@ -105,6 +105,7 @@ struct GameView: View {
             }
             if page == 3 {
                 showOk = false
+                tipCounter = -1
             }
         }
         .onChange(of: isCorrect) {
@@ -116,3 +117,15 @@ struct GameView: View {
         
     }
 }
+
+//#Preview {
+//    @Previewable @State var path: [Route] = []
+//    @Previewable @State var goodEnding: Bool = true
+//    
+//    NavigationStack(path: $path) {
+//        GameView(path: $path, goodEnding: $goodEnding)
+//            .navigationDestination(for: Route.self) { route in
+//                route.view(path: $path, goodEnding: .constant(true))
+//            }
+//    }
+//}

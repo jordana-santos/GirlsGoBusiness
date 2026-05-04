@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @State private var path: [Route] = []
     @State var goodEnding: Bool = true
+    @State var whichInstructions: InstructionSection = .visaoGeral
     
     var body: some View {
         NavigationStack(path: $path){
@@ -47,15 +48,20 @@ struct HomeView: View {
                                     .font(.custom("Grenze-Regular", size: 18))
                             )
                     }
-                    .padding(5)
+                    .padding()
                 }
             }
             .navigationDestination(for: Route.self) { page in
                 page.view(
                     path: $path,
-                    goodEnding: $goodEnding
+                    goodEnding: $goodEnding,
+                    whichInstructions: $whichInstructions
                 )
             }
         }
     }
+}
+
+#Preview {
+    HomeView()
 }

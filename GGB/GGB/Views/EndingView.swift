@@ -55,3 +55,15 @@ struct EndingView: View {
         .navigationBarBackButtonHidden(true)
     }
 }
+
+//#Preview {
+//    @Previewable @State var path: [Route] = []
+//    @Previewable @State var goodEnding: Bool = true
+//    
+//    NavigationStack(path: $path) {
+//        EndingView(path: $path, goodEnding: $goodEnding)
+//            .navigationDestination(for: Route.self) { route in
+//                route.view(path: $path, goodEnding: .constant(true))
+//            }
+//    }
+//}

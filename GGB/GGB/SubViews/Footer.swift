@@ -83,7 +83,7 @@ struct Footer: View {
                         )
                 }
                 .disabled(tipCounter > 2)
-                .opacity(tipCounter == -1 ? 0.5 : 1.0)
+                .opacity(tipCounter < 2 ? 0.5 : 1.0)
                 
                 Spacer()
                 

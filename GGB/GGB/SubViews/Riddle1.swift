@@ -39,6 +39,14 @@ struct Riddle1: View {
     var body: some View {
         VStack(spacing: 16) {
 
+            if showTryAgain {
+                Text("Resposta incorreta, tente novamente.")
+                    .font(.custom("Grenze-Regular", size: 20))
+                    .foregroundColor(Color("red"))
+                    .padding(.horizontal, 4)
+                    .padding()
+            }
+
             ForEach(rows) { row in
                 VStack {
                     HStack {
@@ -92,15 +100,7 @@ struct Riddle1: View {
                         .fill(Color("purple"))
                 )
             }
-
             Spacer()
-            
-            if showTryAgain {
-                Text("Resposta incorreta, tente novamente.")
-                    .font(.custom("Grenze-Regular", size: 20))
-                    .foregroundColor(Color("red"))
-                    .padding(.horizontal, 4)
-            }
         }
         .padding()
         .animation(.easeInOut(duration: 0.5), value: selectedRowID)

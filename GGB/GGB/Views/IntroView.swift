@@ -20,7 +20,7 @@ struct IntroView: View {
                 ZStack {
                     Rectangle()
                         .frame(width: .infinity, height: 600)
-                        .foregroundColor(Color("purple"))
+                        .foregroundColor(Color("textbg"))
                         .cornerRadius(15)
                         .padding()
                     
@@ -109,3 +109,15 @@ struct IntroView: View {
         return [t1, t2, t3]
     }
 }
+
+
+//#Preview {
+//    @Previewable @State var path: [Route] = []
+//    
+//    NavigationStack(path: $path) {
+//        IntroView(path: $path)
+//            .navigationDestination(for: Route.self) { route in
+//                route.view(path: $path, goodEnding: .constant(true))
+//            }
+//    }
+//}
