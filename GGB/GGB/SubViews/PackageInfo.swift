@@ -24,7 +24,7 @@ struct PackageInfo: View {
             ZStack{
                 Rectangle()
                     .frame(width: .infinity, height: 300)
-                    .foregroundColor(Color("purple"))
+                    .foregroundColor(Color("textbg"))
                     .cornerRadius(12)
                     .padding()
                 

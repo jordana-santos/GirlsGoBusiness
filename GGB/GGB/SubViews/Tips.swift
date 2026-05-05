@@ -16,7 +16,7 @@ struct Tips: View {
             ZStack(){
                 Rectangle()
                     .frame(width: .infinity, height: 350)
-                    .foregroundColor(Color("purple"))
+                    .foregroundColor(Color("textbg"))
                     .cornerRadius(15)
                     .padding()
                 

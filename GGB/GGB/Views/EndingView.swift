@@ -10,45 +10,86 @@ import SwiftUI
 struct EndingView: View {
     @Binding var path: [Route]
     @Binding var goodEnding: Bool
+    @State private var page: Int = -1
     
     var body: some View {
         ZStack{
             Color("background")
                 .ignoresSafeArea()
             
-            VStack(){
-                Spacer()
+            if page == -1 {
                 if goodEnding {
-                    Text("Parabéns!")
-                        .font(.custom("Grenze-Regular", size: 24))
-                        .fontWeight(.bold)
-                        .padding()
-                    
-                    Text("Você conseguiu escapar a tempo e salvar a arqueóloga!")
-                        .font(.custom("Grenze-Regular", size: 20))
-                        .padding()
+                    Image("goodEnding")
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea()
                     
                 } else {
-                    Text("O tempo passa rápido e a maré nunca tardia. A água do mar cobre as paredes do templo e não há mais escapatória.")
-                        .font(.custom("Grenze-Regular", size: 20))
-                        .padding()
+                    Image("badEnding")
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea()
                 }
-                
-                Spacer()
-                
-                Button{
-                    path.removeAll()
-                } label: {
+            } else {
+                ZStack {
                     Rectangle()
-                        .frame(width: 350, height: 50)
-                        .cornerRadius(12)
-                        .foregroundColor(Color("group1"))
-                        .overlay(
-                            Text("Voltar para o início")
-                                .foregroundColor(.white)
-                                .font(.custom("Grenze-Regular", size: 20))
-                                .fontWeight(.bold)
-                        )
+                        .frame(width: .infinity, height: 650)
+                        .foregroundColor(Color("textbg"))
+                        .cornerRadius(15)
+                        .padding()
+                    
+                    ScrollView(){
+                        Text(EndingTexts()[page])
+                            .padding()
+                            .font(.custom("Grenze-Regular", size: 20))
+                            .foregroundStyle(.black)
+                    }
+                    .frame(width: 380, height: 600)
+                    .padding()
+                }
+            }
+
+            VStack(){
+                Spacer()
+                Spacer()
+                HStack(){
+                    Spacer()
+                    if page != 3 {
+                        Button{ 
+                            page += 1
+                        } label: {
+                            Rectangle()
+                                .frame(width: 120, height: 50)
+                                .cornerRadius(12)
+                                .foregroundColor(Color("green"))
+                                .overlay(
+                                    Text("Próximo")
+                                        .foregroundColor(.white)
+                                        .font(.custom("Grenze-Regular", size: 20))
+                                        .fontWeight(.bold)
+                                )
+                                .padding()
+                        }
+                        .padding()
+                    } else {
+                        Button{
+                            path.removeAll()
+                        } label: {
+                            Rectangle()
+                                .frame(width: 100, height: 50)
+                                .cornerRadius(12)
+                                .foregroundColor(Color("green"))
+                                .overlay(
+                                    Text("Início")
+                                        .foregroundColor(.white)
+                                        .font(.custom("Grenze-Regular", size: 20))
+                                        .fontWeight(.bold)
+                                )
+                                .padding()
+                        }
+                        .padding()
+                    }
+                    
                 }
             }
         }

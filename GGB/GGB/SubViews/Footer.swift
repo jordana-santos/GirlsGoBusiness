@@ -82,7 +82,7 @@ struct Footer: View {
                                 .font(.custom("Grenze-Regular", size: 24))
                         )
                 }
-                .disabled(tipCounter > 2)
+                .disabled(tipCounter < 2)
                 .opacity(tipCounter < 2 ? 0.5 : 1.0)
                 
                 Spacer()

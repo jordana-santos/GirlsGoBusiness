@@ -21,6 +21,7 @@ struct InstructionsView: View {
                 Spacer()
                 Text(whichInstructions.title)
                     .font(.custom("Grenze-Regular", size: 24))
+                    .foregroundColor(.black)
                 
                 ZStack(alignment: .topLeading) {
                     Rectangle()
@@ -34,6 +35,7 @@ struct InstructionsView: View {
                         Text(whichInstructions.content)
                             .padding()
                             .font(Font.custom("Grenze-Regular", size: 20))
+                            .foregroundColor(.black)
                     }
                     .frame(width: 380, height: 600)
                     .padding()

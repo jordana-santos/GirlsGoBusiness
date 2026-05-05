@@ -82,7 +82,7 @@ struct IntroView: View {
         let t1 = """
                 Vocês vão jogar um jogo que aborda temas relacionados ao ciclo menstrual. 
                 
-                O conhecimento externo que vocês tiverem pode ajudar, mas vocês conseguem resolver só com mas informações do jogo.
+                O conhecimento externo que vocês tiverem pode ajudar, mas vocês conseguem resolver só com as informações do jogo.
                 """
         
         let t2 = """

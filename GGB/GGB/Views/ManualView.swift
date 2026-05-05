@@ -24,6 +24,7 @@ struct ManualView: View {
                 Spacer()
                 Text("Instruções")
                     .font(.custom("Grenze-Regular", size: 24))
+                    .foregroundColor(.black)
                 
                 ZStack (alignment: .topLeading) {
                     Rectangle()
